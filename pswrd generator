@@ -1,0 +1,48 @@
+#!/bin/python3.8
+import random
+
+pswrd = []
+letters = "qazwsxedcrfvtgbyhnujmikolp"
+numbers = "1234567890"
+symbols = """~`!@#$%^&*()-=_+[]{}\|'";:/?.>,<"""
+
+try:
+    Ll = int(input('how many lower case letters ?'))
+    for i in range(Ll):
+        pswrd.append(random.choice(letters))
+except NameError:
+    print('That is not a number.')
+except:
+    print('oops! Something went wrong!')
+
+try:
+    Ul = int(input('how many upper case letters ?'))
+    for i in range(Ul):
+        pswrd.append(random.choice(letters).upper())
+except NameError:
+    print('That is not a number.')
+except:
+    print('oops! Something went wrong!')
+
+try:
+    s = int(input('how many symbols ?'))
+    for i in range(s):
+        pswrd.append(random.choice(symbols))
+except NameError:
+    print('That is not a number.')
+except:
+    print('oops! Something went wrong!')
+
+try:
+    n = int(input('how many numbers ?'))
+    for i in range(n):
+        pswrd.append(random.choice(numbers))
+except NameError:
+    print('That is not a number.')
+except:
+    print('oops! Something went wrong!')
+
+random.shuffle(pswrd)
+p = ''.join(pswrd)
+print(p)
+print("Password length is " + str(len(p)))
