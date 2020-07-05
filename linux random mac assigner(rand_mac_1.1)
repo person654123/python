@@ -1,0 +1,41 @@
+#!/bin/python3
+
+from random import randint as rad
+from subprocess import call
+from time import sleep as s
+
+interface = input("Specify the interface > ")
+
+lst = []
+
+for i in range(6):
+    lst.append(str(rad(0,99)).zfill(2))
+   
+while not (int(lst[0]) % 2 == 0):
+    lst.remove(lst[0])
+    lst.insert(0,str(rad(0,99)).zfill(2))
+    
+mac = ":".join(lst)
+
+print("Assigning random mac address for: \n" + interface + "\nTo:\n    " + mac)     
+
+s(2)
+
+call(["ifconfig",interface,"down"])
+print(interface + "down")
+
+s(1.5)
+
+call(["ifconfig",interface,"hw","ether",mac])  
+print("Changing mac address...")
+
+s(1.3)
+
+call(["ifconfig",interface,"up"])
+print("\n\n" + interface + "up")
+s(1)
+
+call(["ifconfig",interface)]
+print("Successfuly changed mac address for:\n" + interface + 
+"    To:     "  + mac)
+s(0.5)
