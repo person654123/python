@@ -1,18 +1,18 @@
 #!/bin/python3
 
-import random
+from random import randint as rad
 from subprocess import call 
 from time import sleep as s #sleep funtion will be used to delay execution between commands
 
 lst = []
 
 for i in range(6):
-    lst.append(str(random.randint(0, 99)).zfill(2))
+    lst.append(str(random.rad(0, 99)).zfill(2))
 
 
 while not (int(lst[0]) % 2 == 0): #This step insures the mac address starts with an even number
     lst.remove(lst[0])
-    lst.insert(0, str(random.randint(0, 99)).zfill(2)) 
+    lst.insert(0, str(random.rad(0, 99)).zfill(2)) 
 
 
 mac = ":".join(lst)
