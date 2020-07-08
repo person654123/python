@@ -1,0 +1,48 @@
+#!/bin/python3.8
+
+import argparse
+from subprocess import call
+from random import randint as rad
+
+parser = argparse.ArgumentParser()
+parser.add_argument("interface", help="Specify The Interface")
+parser.add_argument("-m", "--mac", dest="nmac", help="Specify a New Mac Address")
+args = parser.parse_args()
+
+
+def change_mac():
+    global mac
+    lst = []
+    
+    for i in range(6):
+        lst.append(str(rad(0, 99)).zfil(2))
+        
+    while not (int(lst[0]) % 2 == 0):
+        
+        lst.remove(lst[0])
+        lst.insert(0,str(rad(0, 99)).zfill(2))
+        
+    mac = ":".join(lst)
+    
+    if args.nmac:
+        print("{[+]}Changing Mac Address for " + args.interface + " to: " + args.nmac)
+    elif not args.nmac:
+        print("{[+]}Changing Mac Address for " + args.interface + " to: " + mac)
+    
+    call(["ifconfig", args.interface, "down"])
+    
+    if args.nmac:
+        call(["ifconfig", args.interface, "hw", "ether", args.nmac])
+    elif not args.nmac:
+        call(["ifconfig", args.interface, "hw", "ether", mac])
+        
+    call(["ifconfig", args.interface, "up"])
+    call(["ifconfig", args.interface])
+        
+    if args.nmac:
+        print("Successfuly Changed Mac Address" + " to: " + args.nmac)
+    elif not args.nmac:
+        print("Successfuly Changed Mac Address" + " to: " + mac)    
+   
+   
+change_mac()
